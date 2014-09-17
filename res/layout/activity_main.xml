@@ -28,4 +28,10 @@
         android:layout_height="wrap_content"
         android:text="@string/discover_new_device" />
 
+    <Button
+        android:id="@+id/btnBleScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/discover_ble_device" />
+
 </LinearLayout>

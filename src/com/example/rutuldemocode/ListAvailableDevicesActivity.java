@@ -1,14 +1,15 @@
 package com.example.rutuldemocode;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothAdapter.LeScanCallback;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -59,16 +60,8 @@ public class ListAvailableDevicesActivity extends Activity {
 	 * Initialize UI element.
 	 */
 	private void initUI() {
+		initActionBar();
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		mBluetoothAdapter.startLeScan(new LeScanCallback() {
-			
-			@Override
-			public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-				// TODO Auto-generated method stub
-				System.out.println(device.getAddress());
-			}
-		});
-		
 		
 		mListAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
 		mListAvailableDevices.setAdapter(mListAdapter);
@@ -105,4 +98,26 @@ public class ListAvailableDevicesActivity extends Activity {
 			}
 		}
 	};
+	
+	/**
+	 * Initialize ActionBar.
+	 */
+	private void initActionBar() {
+		ActionBar actionBar = getActionBar();
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setIcon(this.getResources().getDrawable(R.drawable.ic_launcher));
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action buttons
+		switch (item.getItemId()) {
+		case android.R.id.home:
+            finish();
+            return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 }

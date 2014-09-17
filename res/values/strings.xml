@@ -8,8 +8,10 @@
     <string name="bluetooth_off">Turn Off Bluethooth</string>
     <string name="paired_devices">List of Paired Devices</string>
     <string name="discover_new_device">Discover for new Devices</string>
+    <string name="discover_ble_device">Discover BLE Devices</string>
     <string name="lable_list_paired_devices">List of Paired Devices</string>
     <string name="lable_list_available_devices">List of Available Devices</string>
+    <string name="lable_list_ble_devices">List of BLE Devices</string>
     <string name="text_list_empty">Sorry, No Device Found !!</string>
 
 </resources>

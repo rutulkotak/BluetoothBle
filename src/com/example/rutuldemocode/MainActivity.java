@@ -22,6 +22,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private Button mBtnOn;
 	private Button mBtnOff;
+	private Button mBtnBleScan;
 	private Button mBtnPairedDevices;
 	private Button mBtnSearchNewDevices;
 
@@ -59,6 +60,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.btnSearchNewDevices:
 			Intent availableDevices = new Intent(this, ListAvailableDevicesActivity.class);
 			startActivity(availableDevices);
+			break;
+		case R.id.btnBleScan:
+			Intent bleDevices = new Intent(this, BleActivity.class);
+			startActivity(bleDevices);
 			break;
 		}
 	}
@@ -107,6 +112,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mBtnSearchNewDevices = (Button) findViewById(R.id.btnSearchNewDevices);
 		mBtnSearchNewDevices.setOnClickListener(this);
+		
+		mBtnBleScan = (Button) findViewById(R.id.btnBleScan);
+		mBtnBleScan.setOnClickListener(this);
 	}
 
 	/**
@@ -138,6 +146,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		mBtnOff.setEnabled(true);
 		mBtnPairedDevices.setEnabled(true);
 		mBtnSearchNewDevices.setEnabled(true);
+		mBtnBleScan.setEnabled(true);
 	}
 	
 	/**
@@ -149,6 +158,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		mBtnOff.setEnabled(false);
 		mBtnPairedDevices.setEnabled(false);
 		mBtnSearchNewDevices.setEnabled(false);
+		mBtnBleScan.setEnabled(false);
 	}
 	
 	/**

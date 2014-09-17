@@ -1,6 +1,7 @@
 package com.example.rutuldemocode;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -12,40 +13,49 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
- * This activity shows a list of paired devices.
+ * This activity will start BLE scan and will show devices that is sending message.
  * @author Rutul Kotak
  *
  */
-public class ListPairedDevicesActivity extends Activity {
-
-	private BluetoothAdapter mBluetoothAdapter;
+public class BleActivity extends Activity implements BluetoothAdapter.LeScanCallback {
 	
 	private TextView mTitle;
-	private ListView mListPairedDevices;
+	private ListView mListAvailableDevices;
 	private View mEmpty;
-	
+	private BluetoothAdapter mBluetoothAdapter;
 	private ArrayAdapter<String> mListAdapter;
-
+	private final Map<String,BluetoothDevice> mDevices = new HashMap<String, BluetoothDevice>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bluetooth_devices);
 		initUI();
-		searchPairedDevices();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mBluetoothAdapter.startLeScan(this);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mBluetoothAdapter.stopLeScan(this);
 	}
 	
 	@Override
 	public void onContentChanged() {
 	    super.onContentChanged();
 	    
-	    mListPairedDevices = (ListView) findViewById(R.id.listPairedDevices);
+	    mListAvailableDevices = (ListView) findViewById(R.id.listPairedDevices);
 	    mEmpty = findViewById(R.id.empty);
-	    mListPairedDevices.setEmptyView(mEmpty);
+	    mListAvailableDevices.setEmptyView(mEmpty);
 	}
-
+	
 	/**
 	 * Initialize UI element.
 	 */
@@ -53,31 +63,11 @@ public class ListPairedDevicesActivity extends Activity {
 		initActionBar();
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		
-		mListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-		mListPairedDevices.setAdapter(mListAdapter);
-		
-		mTitle = (TextView) findViewById(R.id.textTitle);
-		mTitle.setText(R.string.lable_list_paired_devices);
-	}
+		mListAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+		mListAvailableDevices.setAdapter(mListAdapter);
 
-	/**
-	 * BluetoothAdapter's getBondedDevices() method will return all devices that are paired.
-	 * Iterate one by one and add them to list.
-	 */
-	private void searchPairedDevices() {
-		if(mBluetoothAdapter.isEnabled()) {
-			Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices(); 
-			for(BluetoothDevice device : pairedDevices)
-				mListAdapter.add(device.getName()+ "\n" + device.getAddress());
-		} else
-			showToast("Bluetooth is OFF !!");
-	}
-	
-	/**
-	 * Show toast message.
-	 */
-	public void showToast(String text) {
-		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		mTitle = (TextView) findViewById(R.id.textTitle);
+		mTitle.setText(R.string.lable_list_ble_devices);
 	}
 	
 	/**
@@ -99,6 +89,20 @@ public class ListPairedDevicesActivity extends Activity {
             return true;
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	/**
+	 * The onLeScan() method is called each time the Bluetooth adapter receives any advertising message 
+	 * from a BLE device while it is scanning.
+	 */
+	@Override
+	public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+		if (device != null && !mDevices.containsValue(device)
+				&& device.getName() != null) {
+			mDevices.put(device.getAddress(), device);
+			mListAdapter.add(device.getName() + "\n" + device.getAddress());
+			mListAdapter.notifyDataSetChanged();
 		}
 	}
 }
