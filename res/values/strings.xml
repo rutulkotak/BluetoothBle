@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RutulDemoCode</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="bluetooth_on">Turn on Bluethooth</string>
+    <string name="bluetooth_off">Turn Off Bluethooth</string>
+    <string name="paired_devices">List of Paired Devices</string>
+    <string name="discover_new_device">Discover for new Devices</string>
+    <string name="lable_list_paired_devices">List of Paired Devices</string>
+    <string name="lable_list_available_devices">List of Available Devices</string>
+    <string name="text_list_empty">Sorry, No Device Found !!</string>
+
+</resources>

@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="@dimen/main_activity_layout_margin"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnOn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bluetooth_on" />
+
+    <Button
+        android:id="@+id/btnSetOff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bluetooth_off" />
+
+    <Button
+        android:id="@+id/btnPairedDevices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/paired_devices" />
+
+    <Button
+        android:id="@+id/btnSearchNewDevices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/discover_new_device" />
+
+</LinearLayout>
