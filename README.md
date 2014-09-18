@@ -21,10 +21,11 @@ Use-case:
 =========
 When you start application, it will show a list of options to use Bluetooth and BLE related operations.
 From first screen, user can turn ON / OFF bluetooth as per it's state.
-And when bluetooth is ON, user can see,
-(1) List of paired devices.
-(2) User can discovery available devices.
-(3) User can get list of BLE devices.
+And when bluetooth is ON, user can see following.
+
+1. List of paired devices.
+2. User can discovery available devices.
+3. User can get list of BLE devices.
 
 
 Please Note:
