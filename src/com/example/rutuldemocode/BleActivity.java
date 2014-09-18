@@ -97,12 +97,20 @@ public class BleActivity extends Activity implements BluetoothAdapter.LeScanCall
 	 * from a BLE device while it is scanning.
 	 */
 	@Override
-	public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-		if (device != null && !mDevices.containsValue(device)
-				&& device.getName() != null) {
+	public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+		
+		System.out.println(device.getAddress());
+		if (device != null && !mDevices.containsValue(device) && device.getName() != null) {
 			mDevices.put(device.getAddress(), device);
-			mListAdapter.add(device.getName() + "\n" + device.getAddress());
-			mListAdapter.notifyDataSetChanged();
+			
+			runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                	mListAdapter.add(device.getName() + "\n" + device.getAddress());
+        			mListAdapter.notifyDataSetChanged();
+                }
+            });
 		}
 	}
 }
