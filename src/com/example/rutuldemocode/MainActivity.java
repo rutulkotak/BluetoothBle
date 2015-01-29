@@ -81,7 +81,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 */
 	private void setBluetoothOff() {
 		mBluetoothAdapter.disable();
-		configureBluetoothOff();
+		configureBluetoothOption(false);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == REQUEST_ENABLE_BT) {
-			configureBluetoothOn();
+			configureBluetoothOption(true);
 		}
 	}
 
@@ -131,34 +131,27 @@ public class MainActivity extends Activity implements OnClickListener {
 			mBtnPairedDevices.setEnabled(false);
 			mBtnSearchNewDevices.setEnabled(false);
 		} else if (mBluetoothAdapter.isEnabled()) {
-			configureBluetoothOn();
+			configureBluetoothOption(true);
 		} else {
-			configureBluetoothOff();
+			configureBluetoothOption(false);
 		}
-	}
-
-	/**
-	 * Set enable true / false buttons when Bluetooth is on.
-	 */
-	private void configureBluetoothOn() {
-		showTost("Bluetooth is ON !!");
-		mBtnOn.setEnabled(false);
-		mBtnOff.setEnabled(true);
-		mBtnPairedDevices.setEnabled(true);
-		mBtnSearchNewDevices.setEnabled(true);
-		mBtnBleScan.setEnabled(true);
 	}
 	
 	/**
-	 * Set enable true / false buttons when Bluetooth is off.
+	 * Set enable true / false buttons when Bluetooth is on/off.
 	 */
-	private void configureBluetoothOff() {
-		showTost("Bluetooth is OFF !!");
-		mBtnOn.setEnabled(true);
-		mBtnOff.setEnabled(false);
-		mBtnPairedDevices.setEnabled(false);
-		mBtnSearchNewDevices.setEnabled(false);
-		mBtnBleScan.setEnabled(false);
+	private void configureBluetoothOption(boolean flag) {
+		mBtnOff.setEnabled(flag);
+		mBtnPairedDevices.setEnabled(flag);
+		mBtnSearchNewDevices.setEnabled(flag);
+		mBtnBleScan.setEnabled(flag);
+		if(flag) {
+			mBtnOn.setEnabled(false);
+			showTost("Bluetooth is ON !!");
+		} else {
+			mBtnOn.setEnabled(true);
+			showTost("Bluetooth is OFF !!");
+		}
 	}
 	
 	/**
